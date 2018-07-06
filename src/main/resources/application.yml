@@ -1,0 +1,48 @@
+server:
+  port: 8095    #default port where the service will be started
+ 
+eureka:         #tells about the Eureka server details and its refresh time
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+ 
+spring:    
+  application:
+    name: obtener-uno-service   #current service name to be used by the eureka server
+  datasource:
+    url: jdbc:mysql://localhost/libreria?useSSL=false
+    username: root
+    password: 12345
+  
+  jpa:
+    properties: 
+     hibernate:
+       dialect: org.hibernate.dialect.MySQLDialect
+       id:
+        new_generator_mappings: false
+       format_sql: false
+        
+ 
+     
+management:
+  security:
+    enabled: false  #disable the spring security on the management endpoints like /env, /refresh etc.
+ 
+logging:
+  level:
+    com.neoris.microservicios: DEBUG
+    org:
+     hibernate:
+      SQL: DEBUG
+      type:
+        descriptor:
+         sql:
+          BasicBinder: TRACE
+  file: milog.log
